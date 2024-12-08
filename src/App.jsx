@@ -7,41 +7,55 @@ function App() {
 
   const [Height, setHeight] = useState('')
   const [Weight, setWeight] = useState('')
-  const [isHeight,setIsHeight]=useState(true)
-  const [isWeight,setIsWeight]=useState(true)
-  const [BMI,setBmi]=useState(0)
+  const [isHeight, setIsHeight] = useState(true)
+  const [isWeight, setIsWeight] = useState(true)
+  const [BMI, setBmi] = useState(0)
+  const [res, setRes] = useState('')
 
   const validate = (e) => {
     // console.log(e.target.value);
-    const {name,value} =e.target
+    const { name, value } = e.target
     console.log(name);
     console.log(value);
-    
-    if(!!value.match('^[0-9]*$')){
-      if(name=='Height'){
+
+    if (!!value.match('^[0-9]*$')) {
+      if (name == 'Height') {
         setHeight(value)
         setIsHeight(true)
-      }else{
+      } else {
         setWeight(value)
         setIsWeight(true)
       }
-    }else{
-      if(name=='Height'){
+    } else {
+      if (name == 'Height') {
         setHeight(value)
         setIsHeight(false)
-      }else{
+      } else {
         setWeight(value)
         setIsWeight(false)
       }
-      
+
     }
-    
+
   }
 
-  const calculate=()=>{
-    setBmi((Weight/((Height/100)*(Height/100))).toFixed(1))
+  const calculate = () => {
+    const result = ((Weight / ((Height / 100) * (Height / 100))).toFixed(1))
+    setBmi(result)
+
+    if (result >= 30) {
+      setRes('obese')
+    } else if (result >= 25 && result <= 29.9) {
+      setRes('Over weight')
+    } else if (result >= 18.5 && result <= 24.9) {
+      setRes('Healthy weight')
+    } else {
+      setRes('Under weight')
+    }
   }
-  const reset=()=>{
+
+
+  const reset = () => {
     setHeight('')
     setWeight('')
     setBmi(0)
@@ -57,20 +71,21 @@ function App() {
             <div className='bg-light p-3 rounded-5 my-4 d-flex justifu-content-center align-items-center flex-column'>
               <h1>{BMI}</h1>
             </div>
+            <p className='text-center'>{res}</p>
 
             <div className='d-flex justify-content-center'>
               <div className="mb-3">
                 <TextField id="standard-basic" label="Height" name='Height' value={Height} variant="standard" onChange={(e) => { validate(e) }} />
-                  {isHeight == false &&
-                    <p className='text-danger'>*Invalid input</p>
-                    }
+                {isHeight == false &&
+                  <p className='text-danger'>*Invalid input</p>
+                }
               </div>
 
               <div className="mb-3 ms-4">
                 <TextField id="standard-basic" label="Weight" name='Weight' value={Weight} variant="standard" onChange={(e) => { validate(e) }} />
                 {isWeight == false &&
-                    <p className='text-danger'>*Invalid input</p>
-                    }
+                  <p className='text-danger'>*Invalid input</p>
+                }
               </div>
             </div>
 
