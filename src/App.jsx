@@ -75,14 +75,14 @@ function App() {
 
             <div className='d-flex justify-content-center'>
               <div className="mb-3">
-                <TextField id="standard-basic" label="Height" name='Height' value={Height} variant="standard" onChange={(e) => { validate(e) }} />
+                <TextField id="standard-basic" label="Height (cm)" name='Height' value={Height} variant="standard" onChange={(e) => { validate(e) }} />
                 {isHeight == false &&
                   <p className='text-danger'>*Invalid input</p>
                 }
               </div>
 
               <div className="mb-3 ms-4">
-                <TextField id="standard-basic" label="Weight" name='Weight' value={Weight} variant="standard" onChange={(e) => { validate(e) }} />
+                <TextField id="standard-basic" label="Weight (kg)" name='Weight' value={Weight} variant="standard" onChange={(e) => { validate(e) }} />
                 {isWeight == false &&
                   <p className='text-danger'>*Invalid input</p>
                 }
